@@ -1,0 +1,57 @@
+version: 0.2
+
+env:
+  variables:
+    CUDA_HOME: "/usr/local/cuda/"
+
+phases:
+  install:
+    commands:
+      - echo Entered the install phase...
+      - cd
+      - apt-get update -y
+      - sudo apt-get install git
+      - wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1404-10-0-local-10.0.130-410.48_1.0-1_amd64
+      - sudo dpkg -i cuda-repo-ubuntu1404-10-0-local-10.0.130-410.48_1.0-1_amd64
+      - sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
+      - sudo apt-get install -y cuda
+    finally:
+      - echo This always runs even if the update or install command fails
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+      - export CUDA_HOME=/usr/local/cuda/ && export LD_LIBRARY_PATH=${CUDA_HOME}/lib64 && PATH=${CUDA_HOME}/bin:${PATH}
+      - echo Let's test nvcc
+      - nvcc --version
+    finally:
+      - echo This always runs even if the login command fails
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build started on `date`
+      - git clone git@github.com:RelativePrime/shoc.git
+      - cd shoc/
+      - ./configure --prefix=/opt/shoc
+      - make
+    finally:
+      - echo This always runs even if the install command fails
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - target/messageUtil-1.0.jar
+  discard-paths: yes
+  secondary-artifacts:
+    artifact1:
+      files:
+        - target/messageUtil-1.0.jar
+      discard-paths: yes
+    artifact2:
+      files:
+        - target/messageUtil-1.0.jar
+      discard-paths: yes
+cache:
+  paths:
+    - '/root/.m2/**/*'
