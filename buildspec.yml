@@ -15,7 +15,7 @@ phases:
       - sudo dpkg -i cuda-repo-ubuntu1404-10-0-local-10.0.130-410.48_1.0-1_amd64
       - sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
       - apt-get update -y
-      - sudo apt-get install -y cuda
+      - #sudo apt-get install -y cuda
     finally:
       - echo This always runs even if the update or install command fails
   pre_build:
@@ -23,7 +23,7 @@ phases:
       - echo Entered the pre_build phase...
       - export CUDA_HOME=/usr/local/cuda/ && export LD_LIBRARY_PATH=${CUDA_HOME}/lib64 && PATH=${CUDA_HOME}/bin:${PATH}
       - echo Let's test nvcc
-      - nvcc --version
+      - #nvcc --version
     finally:
       - echo This always runs even if the login command fails
   build:
