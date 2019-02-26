@@ -30,7 +30,8 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-      - git clone git@github.com:RelativePrime/shoc.git
+      # fails despite being public - git clone git@github.com:RelativePrime/shoc.git
+      - git clone https://github.com/RelativePrime/shoc.git
       - cd shoc/
       - ./configure --prefix=/opt/shoc
       - make
