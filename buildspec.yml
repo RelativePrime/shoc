@@ -22,7 +22,7 @@ phases:
     commands:
       - echo Entered the pre_build phase...
       - export CUDA_HOME=/usr/local/cuda/ && export LD_LIBRARY_PATH=${CUDA_HOME}/lib64 && PATH=${CUDA_HOME}/bin:${PATH}
-      - echo Let's test nvcc
+      - echo Lets test nvcc
       - # nvcc --version
     finally:
       - echo This always runs even if the login command fails
