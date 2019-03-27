@@ -38,19 +38,18 @@ jobs:
             # sudo apt-get install -y cuda fuse-
 
       - run: 
-            environment:
-              CUDA_HOME: "/usr/local/cuda/"
-              LD_LIBRARY_PATH: "${CUDA_HOME}/lib64"
-              PATH: "${CUDA_HOME}/bin:${PATH}"
-            command:
-              echo Lets build shoc
-              #nvcc --version
-              git clone https://github.com/RelativePrime/shoc.git
-              cd shoc/
-              ./configure --prefix=/opt/shoc
-              make
+          environment:
+            CUDA_HOME: "/usr/local/cuda/"
+            LD_LIBRARY_PATH: "${CUDA_HOME}/lib64"
+            PATH: "${CUDA_HOME}/bin:${PATH}"
+          command:
+            echo Lets build shoc
+            #nvcc --version
+            git clone https://github.com/RelativePrime/shoc.git
+            cd shoc/
+            ./configure --prefix=/opt/shoc
+            make
 
-        
 
 workflows:
   version: 2
