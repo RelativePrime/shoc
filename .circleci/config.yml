@@ -36,6 +36,15 @@ jobs:
             apt-get update -y
             # sudo apt-get install -y cuda fuse-
 
+      - run:
+          environment:
+            SOME_VAR: "/usr/local/foo/" 
+          command: |
+            echo Entered the build phase...
+            git clone https://github.com/RelativePrime/shoc.git
+            cd shoc/
+            ./configure --prefix=/opt/shoc
+            make
 
 workflows:
   version: 2
