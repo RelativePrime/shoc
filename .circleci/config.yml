@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ubuntu:14.04
+
+    environment:
+      TEST_REPORTS: /tmp/test-reports
+
+    working_directory: ~/my-project
+
+    steps:
+      - checkout
+
+      - run:
+          command: echo 127.0.0.1 devhost | sudo tee -a /etc/hosts
+
+      # Note the YAML heredoc '|' for nicer formatting
+      - run:
+          environment:
+            CUDA_HOME: "/usr/local/cuda/" 
+          command: |
+            echo Entered the install phase...
+            cd
+            apt-get update -y
+            sudo apt-get install -y git
+            wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1404-10-0-local-10.0.130-410.48_1.0-1_amd64
+            sudo dpkg -i cuda-repo-ubuntu1404-10-0-local-10.0.130-410.48_1.0-1_amd64
+            sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
+            apt-get update -y
+            sudo apt-get install -y cuda
+
+
+workflows:
+  version: 2
+
+  build_test_deploy:
+    jobs:
+      - flow
+      - downstream:
+          requires:
+            - flow
+          filters:
+            branches:
+              only: awsbuild 
+
