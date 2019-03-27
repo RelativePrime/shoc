@@ -10,7 +10,7 @@ jobs:
     working_directory: ~/my-project
 
     steps:
-      - checkout
+      #- checkout
 
       - run:
           command: echo 127.0.0.1 devhost | sudo tee -a /etc/hosts
@@ -35,8 +35,6 @@ jobs:
             # sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
             apt-get update -y
             # sudo apt-get install -y cuda fuse-
-
-      - build 
 
       - run:
           environment:
