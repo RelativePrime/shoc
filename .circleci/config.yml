@@ -40,7 +40,6 @@ workflows:
             branches:
               ignore:
                 - develop
-                - awsbuild
       - deploy-stage:
           requires:
             - build
