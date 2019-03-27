@@ -18,9 +18,7 @@ jobs:
       # Note the YAML heredoc '|' for nicer formatting
       - run:
           environment:
-            CUDA_HOME: "/usr/local/cuda/"
-            LD_LIBRARY_PATH: "${CUDA_HOME}/lib64"
-            PATH: "${CUDA_HOME}/bin:${PATH}"
+            CUDA_HOME: "/usr/local/cuda/" 
           command: |
             echo Entered the install phase...
             cd
@@ -30,20 +28,14 @@ jobs:
             # or fakeroot apt-get ...
             # or --no-install-recommends
             # sudo apt-mark hold fuse
-            apt-get update -y
-            sudo apt-get install -y git wget gcc build-essential
+            # apt-get update -y
+            # sudo apt-get install -y git wget
             # wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1404-10-0-local-10.0.130-410.48_1.0-1_amd64
             # sudo dpkg -i cuda-repo-ubuntu1404-10-0-local-10.0.130-410.48_1.0-1_amd64
             # sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
-            # apt-get update -y
-            # Installing fuse inside the circleCI container is fail
+            apt-get update -y
             # sudo apt-get install -y cuda fuse-
-            echo Lets build shoc
-            #nvcc --version
-            git clone https://github.com/RelativePrime/shoc.git
-            cd shoc/
-            ./configure --prefix=/opt/shoc
-            make
+
 
 workflows:
   version: 2
