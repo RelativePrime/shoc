@@ -24,9 +24,10 @@ jobs:
             cd
             # https://github.com/moby/moby/issues/963
             # fuse install workarounds
-            # dpkg-divert --local --rename --add /sbin/mknod && ln -s /bin/true /sbin/mknod
+            dpkg-divert --local --rename --add /sbin/mknod && ln -s /bin/true /sbin/mknod
             # or fakeroot apt-get ...
-            # of --no-install-recommends
+            # or --no-install-recommends
+            sudo apt-mark hold fuse
             apt-get update -y
             sudo apt-get install -y git wget --no-install-recommends fuse
             wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1404-10-0-local-10.0.130-410.48_1.0-1_amd64
